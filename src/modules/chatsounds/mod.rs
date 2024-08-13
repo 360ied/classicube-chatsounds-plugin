@@ -157,13 +157,13 @@ impl Module for ChatsoundsModule {
 
             let future = async {
                 let mut chatsounds = {
+                    let path = Path::new("plugins/chatsounds");
+                    fs::create_dir_all(path).unwrap();
+
                     if fs::metadata("plugins")
                         .map(|meta| meta.is_dir())
                         .unwrap_or(false)
                     {
-                        let path = Path::new("plugins/chatsounds");
-                        fs::create_dir_all(path).unwrap();
-
                         let mut chatsounds = Chatsounds::new(path).unwrap();
 
                         chatsounds.set_volume(VOLUME_NORMAL * volume);
